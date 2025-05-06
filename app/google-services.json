@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367030389371",
+    "project_id": "dmarket-3aaee",
+    "storage_bucket": "dmarket-3aaee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367030389371:android:f5979f25da9f82034270de",
+        "android_client_info": {
+          "package_name": "com.example.a3dmarket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr-hDUzlHW9EqQ373tx182XIrXkAXcAOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

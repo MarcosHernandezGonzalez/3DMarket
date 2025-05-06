@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/catalogoEncargos">
+
+    <fragment
+        android:id="@+id/catalogoEncargos"
+        android:name="com.example.a3dmarket.CatalogoEncargos"
+        android:label="fragment_catalogo_encargos"
+        tools:layout="@layout/fragment_catalogo_encargos" />
+    <fragment
+        android:id="@+id/catalogoTiendas"
+        android:name="com.example.a3dmarket.CatalogoTiendas"
+        android:label="fragment_catalogo_tiendas"
+        tools:layout="@layout/fragment_catalogo_tiendas" />
+    <fragment
+        android:id="@+id/perfil"
+        android:name="com.example.a3dmarket.Perfil"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/topBar"
+        android:name="com.example.a3dmarket.topBar"
+        android:label="fragment_top_bar"
+        tools:layout="@layout/fragment_top_bar" />
+    <fragment
+        android:id="@+id/orderView"
+        android:name="com.example.a3dmarket.OrderView"
+        android:label="fragment_order_view"
+        tools:layout="@layout/fragment_order_view" />
+    <fragment
+        android:id="@+id/createOrder"
+        android:name="com.example.a3dmarket.CreateOrder"
+        android:label="fragment_create_order"
+        tools:layout="@layout/fragment_create_order" />
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.a3dmarket.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/register"
+        android:name="com.example.a3dmarket.Register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+</navigation>

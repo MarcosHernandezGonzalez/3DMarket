@@ -28,7 +28,6 @@ class CatalogoItemAdapter(private var mList: List<Order>) :
 
         holder.textViewTitulo.text = order.title
         holder.textViewDescripcion.text = order.desc
-        holder.imageView.setImageResource(android.R.drawable.ic_menu_gallery)
 
         holder.itemView.setOnClickListener {
             val orderView = OrderView().apply {
@@ -59,7 +58,6 @@ class CatalogoItemAdapter(private var mList: List<Order>) :
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val textViewTitulo: TextView = itemView.findViewById(R.id.titulo)
         val textViewDescripcion: TextView = itemView.findViewById(R.id.descripcion)
-        val imageView: ImageView = itemView.findViewById(R.id.imagenOrden)
 
     }
     fun updateData(newOrders: List<Order>) {

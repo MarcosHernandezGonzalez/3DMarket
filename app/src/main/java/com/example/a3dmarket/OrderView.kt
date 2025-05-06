@@ -9,12 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.a3dmarket.databinding.FragmentOrderViewBinding
 
 class OrderView : Fragment() {
     private lateinit var binding: FragmentOrderViewBinding
-    private val viewModel: CatalogoVM by viewModels()
+    private val viewModel: CatalogoVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +39,14 @@ class OrderView : Fragment() {
         viewModel.userInfo.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 binding.textView12.text = user.name
+                binding.textView12.setOnClickListener {
+                    val fragment = Perfil()
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView2, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
         return binding.root

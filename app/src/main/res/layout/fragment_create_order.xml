@@ -12,6 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView3"
+            android:name="com.example.a3dmarket.topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="92dp" />

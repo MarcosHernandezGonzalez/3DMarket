@@ -38,48 +38,60 @@ class Register : Fragment() {
             val showEmail = binding.showEmail.isChecked
             val showLocation = binding.showLocation.isChecked
 
-            if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty()) {
-                if ((isMaker && printerInfo.isNotEmpty()) || !isMaker) {
-                    lifecycleScope.launch {
-                        val usernameExists = viewModel.checkUsername(name)
-                        val emailExists = viewModel.checkEmail(email)
+            if (showEmail && showLocation) {
+                if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty()) {
+                    if ((isMaker && printerInfo.isNotEmpty()) || !isMaker) {
+                        lifecycleScope.launch {
+                            val usernameExists = viewModel.checkUsername(name)
+                            val emailExists = viewModel.checkEmail(email)
 
-                        if (usernameExists) {
-                            Toast.makeText(
-                                requireContext(),
-                                "El nombre de usuario ya está en uso",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else if (emailExists) {
-                            Toast.makeText(
-                                requireContext(),
-                                "El correo electrónico ya está en uso",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            viewModel.registerUser(
-                                name,
-                                email,
-                                pass,
-                                printerInfo,
-                                dir,
-                                isMaker,
-                                showEmail,
-                                showLocation
-                            )
+                            if (usernameExists) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "El nombre de usuario ya está en uso",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (emailExists) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "El correo electrónico ya está en uso",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                viewModel.registerUser(
+                                    name,
+                                    email,
+                                    pass,
+                                    printerInfo,
+                                    dir,
+                                    isMaker,
+                                    showEmail,
+                                    showLocation
+                                )
 
-                            val fragment = Login()
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragmentContainerView2, fragment)
-                                .addToBackStack(null)
-                                .commit()
+                                val fragment = Login()
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragmentContainerView2, fragment)
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
                         }
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Por favor, rellena la información de la impresora",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Por favor, rellena la información de la impresora", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Por favor, rellena todos los campos",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Tienes que aceptar las condiciones", Toast.LENGTH_SHORT).show()
             }
         }
 

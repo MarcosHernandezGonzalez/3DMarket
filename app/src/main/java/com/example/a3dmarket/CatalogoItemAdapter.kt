@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
@@ -28,6 +29,9 @@ class CatalogoItemAdapter(private var mList: List<Order>) :
 
         holder.textViewTitulo.text = order.title
         holder.textViewDescripcion.text = order.desc
+        if (!order.estado) {
+            holder.imageView.setImageDrawable(ContextCompat.getDrawable(holder.imageView.context, R.drawable.rect_background_accepted))
+        }
 
         holder.itemView.setOnClickListener {
             val orderView = OrderView().apply {
@@ -58,6 +62,7 @@ class CatalogoItemAdapter(private var mList: List<Order>) :
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val textViewTitulo: TextView = itemView.findViewById(R.id.titulo)
         val textViewDescripcion: TextView = itemView.findViewById(R.id.descripcion)
+        val imageView: ImageView = itemView.findViewById(R.id.imageView3)
 
     }
     fun updateData(newOrders: List<Order>) {

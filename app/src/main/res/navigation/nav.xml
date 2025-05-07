@@ -45,4 +45,9 @@
         android:name="com.example.a3dmarket.Register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/perfilPropio"
+        android:name="com.example.a3dmarket.perfilPropio"
+        android:label="fragment_perfil_propio"
+        tools:layout="@layout/fragment_perfil_propio" />
 </navigation>

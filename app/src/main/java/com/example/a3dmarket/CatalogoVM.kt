@@ -24,6 +24,8 @@ class CatalogoVM: ViewModel() {
     val userId: MutableLiveData<String?> get() = _userId
     private val _userInfo = MutableLiveData<User?>()
     val userInfo: MutableLiveData<User?> get() = _userInfo
+    private val _userOrders = MutableLiveData<List<Order>>()
+    val userOrders: MutableLiveData<List<Order>> get() = _userOrders
 
     fun fetchOrders() {
         Log.d("CatalogoVM", "------------- FETCHING ORDERS -------------")
@@ -89,11 +91,41 @@ class CatalogoVM: ViewModel() {
         }
     }
     fun getUserInfo(id: String) {
-        Log.d("CatalogoVM", "------------- GETTING USER ORDER -------------")
+        Log.d("CatalogoVM", "------------- GETTING USER INFO -------------")
         viewModelScope.launch(Dispatchers.IO) {
             val order = repository.getUserInfo(id)
             _userInfo.postValue(order)
+            Log.d("CatalogoVM", "User info: ${order}")
+        }
+    }
+    fun getUserOrders(id: String) {
+        Log.d("CatalogoVM", "------------- GETTING USER ORDERS -------------")
+        viewModelScope.launch(Dispatchers.IO) {
+            val order = repository.getUserOrders(id)
+            _userOrders.postValue(order)
+            Log.d("CatalogoVM", "User info: ${order}")
         }
     }
 
+    fun markOrder(id: String?) {
+        Log.d("CatalogoVM", "------------- MARKING ORDER -------------")
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.markOrder(id)
+        }
+    }
+
+    fun deleteOrder(id: String?) {
+        Log.d("CatalogoVM", "------------- DELETING ORDER -------------")
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteOrder(id)
+        }
+    }
+
+    fun logout() {
+        Log.d("CatalogoVM", "------------- LOGOUT -------------")
+        _user.value = null
+        _userId.value = null
+        _userInfo.value = null
+        _userOrders.value = emptyList()
+    }
 }

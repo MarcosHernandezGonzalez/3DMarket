@@ -8,33 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.a3dmarket.databinding.FragmentPerfilBinding
+import com.example.a3dmarket.databinding.FragmentPerfilPropioBinding
 
-class Perfil : Fragment() {
-    private lateinit var binding: FragmentPerfilBinding
+class perfilPropio : Fragment() {
     private val viewModel: CatalogoVM by activityViewModels()
+    private lateinit var binding: FragmentPerfilPropioBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPerfilBinding.inflate(inflater, container, false)
-        if (viewModel.userId.value == viewModel.userInfo.value?.id) {
-            val fragment = perfilPropio()
-
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView2, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
-        if (viewModel.userInfo.value?.isMaker == true) {
+        binding = FragmentPerfilPropioBinding.inflate(inflater, container, false)
+        if (viewModel.user.value?.isMaker == true) {
             binding.isMaker.text = "Maker"
         } else {
             binding.isMaker.text = "No Maker"
         }
-        binding.name.text = viewModel.userInfo.value?.name
-        binding.email.text = viewModel.userInfo.value?.email
-        binding.location.text = viewModel.userInfo.value?.dir
-        binding.printerInfo.text = viewModel.userInfo.value?.printerInfo
+        binding.name.text = viewModel.user.value?.name
+        binding.email.text = viewModel.user.value?.email
+        binding.location.text = viewModel.user.value?.dir
+        binding.printerInfo.text = viewModel.user.value?.printerInfo
         val recyclerView = binding.userOrders
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         val adapter = CatalogoItemAdapter(emptyList())
@@ -43,7 +35,7 @@ class Perfil : Fragment() {
             adapter.updateData(orders)
             Log.d("CatalogoEncargos", "Pedidos cargados: ${orders.size}")
         }
-        viewModel.getUserOrders(viewModel.userInfo.value?.id.toString())
+        viewModel.getUserOrders(viewModel.user.value?.id.toString())
         return binding.root
     }
 

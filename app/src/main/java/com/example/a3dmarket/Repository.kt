@@ -12,7 +12,7 @@ class Repository {
         val db = Firebase.firestore
         Log.d("Repository", "------------- GETTING ORDERS -------------")
         return try {
-            val querySnapshot = db.collection("orders").get().await()
+            val querySnapshot = db.collection("orders").whereEqualTo("estado", true).get().await()
             val orders = querySnapshot.map { document ->
                 Order(
                     document.id,
@@ -132,7 +132,7 @@ class Repository {
                         document.getString("pass") ?: "",
                         document.getString("printerInfo") ?: "",
                         document.getString("dir") ?: "",
-                        document.getBoolean("isMaker") ?: false,
+                        document.getBoolean("maker") ?: false,
                         document.getBoolean("showEmail") ?: false,
                         document.getBoolean("showLocation") ?: false
                     )
@@ -159,7 +159,7 @@ class Repository {
                 pass = data.getString("pass") ?: "",
                 printerInfo = data.getString("printerInfo") ?: "",
                 dir = data.getString("dir") ?: "",
-                isMaker = data.getBoolean("isMaker") ?: false,
+                isMaker = data.getBoolean("maker") ?: false,
                 showEmail = data.getBoolean("showEmail") ?: false,
                 showLocation = data.getBoolean("showLocation") ?: false
             )
@@ -169,4 +169,61 @@ class Repository {
         }
     }
 
+    suspend fun getUserOrders(id: String): List<Order> {
+        Log.d("Repository", "------------- GET USER ORDERS -------------")
+        try {
+            val db = Firebase.firestore
+            val querySnapshot = db.collection("orders")
+                .whereEqualTo("usuario", id)
+                .get()
+                .await()
+            if (querySnapshot.isEmpty) {
+                return emptyList()
+            } else {
+                val orders = querySnapshot.map { document ->
+                    Order(
+                        document.id,
+                        document.getString("title") ?: "",
+                        document.getString("desc") ?: "",
+                        document.getString("imagen") ?: "",
+                        document.getString("archivo") ?: "",
+                        document.getString("fecha") ?: "",
+                        document.getBoolean("estado") ?: false,
+                        document.getString("usuario") ?: ""
+                    )
+                }
+                Log.d("Repository", "User orders: ${orders.size}")
+                return orders
+            }
+        } catch (e: Exception) {
+            Log.e("Repository", "Error getting user orders", e)
+            return emptyList()
+        }
+    }
+
+    fun markOrder(id: String?) {
+        Log.d("Repository", "------------- MARKING ORDER -------------")
+        try {
+            val db = Firebase.firestore
+            if (id != null) {
+                db.collection("orders").document(id).update("estado", false)
+            }
+            Log.d("Repository", "Order marked")
+        } catch (e: Exception) {
+            Log.e("Repository", "Error marking order", e)
+        }
+    }
+
+    fun deleteOrder(id: String?) {
+        Log.d("Repository", "------------- DELETING ORDER -------------")
+        try {
+            val db = Firebase.firestore
+            if (id != null) {
+                db.collection("orders").document(id).delete()
+            }
+            Log.d("Repository", "Order deleted")
+        } catch (e: Exception) {
+            Log.e("Repository", "Error deleting order", e)
+        }
+    }
 }

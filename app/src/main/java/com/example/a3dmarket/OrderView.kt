@@ -26,6 +26,26 @@ class OrderView : Fragment() {
         viewModel.order.observe(viewLifecycleOwner) { order ->
             binding.textView10.text = order?.title
             binding.textView11.text = order?.desc
+            binding.date.text = order?.fecha
+            if (viewModel.userId.value == order?.usuario) {
+                binding.mark.visibility = View.VISIBLE
+                binding.delete.visibility = View.VISIBLE
+            } else {
+                binding.mark.visibility = View.GONE
+                binding.delete.visibility = View.GONE
+            }
+            binding.mark.setOnClickListener {
+                viewModel.markOrder(order?.id)
+            }
+            binding.delete.setOnClickListener {
+                viewModel.deleteOrder(order?.id)
+                val fragment = CatalogoEncargos()
+
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView2, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
             order?.usuario?.let { viewModel.getUserInfo(it) }
             binding.file.setOnClickListener {
                 val archivoUrl = order?.archivo
@@ -58,6 +78,4 @@ class OrderView : Fragment() {
     fun isGoogleDriveLink(url: String): Boolean {
         return url.contains("drive.google.com")
     }
-
-
 }

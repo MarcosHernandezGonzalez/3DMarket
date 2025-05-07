@@ -166,7 +166,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"
-            android:text="Aceptas que se muestren los siguientes datos en tu perfil? los que no marques no se mostrarán."
+            android:text="Aceptas que se muestren los siguientes datos en tu perfil? Si no los aceptas no podrás registrarte."
             android:textColor="#FFFFFF" />
 
         <LinearLayout
